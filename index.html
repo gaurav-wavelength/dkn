@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dadi Ke Nuskhe</title>
+<title>Punarvasu Vaidya</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Noto+Sans:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -45,31 +45,31 @@
 </head>
 <body>
 <header>
-  <div class="mark">दा</div>
+  <div class="mark">पु</div>
   <div>
-    <h1>Dadi Ke Nuskhe</h1>
-    <p>Ghar ka paramparik gyaan, jab chahe poochho</p>
+    <h1>Punarvasu Vaidya</h1>
+    <p>Ayurveda & Complete Wellness Guidance</p>
   </div>
 </header>
 
 <div id="chat">
-  <div class="msg bot">Aao beta 🙏 Main hoon tumhari Dadi. Pet kharab ho, neend na aaye, ya bas yeh jaanna ho ki shahad kaise lena chahiye, mujhse poochho. Mere paas ghar ke aazmaye hue nuskhon ka poora pitara hai.</div>
+  <div class="msg bot">Pranam 🙏 Main hoon Punarvasu Vaidya. Sharir ki shuddhi, liver-detox, blood pressure control, jodon ke dard, mental wellness aur pachan ke sath-sath sampurna svasthya (complete wellness) se juda koi bhi prashn aap mujhse poochh sakte hain. Main prachin ayurvedic siddhanto aur parampariq nuskho ke adhar par aapka margdarshan karunga.</div>
   <div class="starters" id="starters">
-    <button>Acidity ho rahi hai, kya karun?</button>
-    <button>Subah uthkar kya karna chahiye?</button>
-    <button>Shahad lene ke niyam batao</button>
-    <button>Kabz ka gharelu ilaaj?</button>
-    <button>Millets kaise shuru karun?</button>
-    <button>Neend nahi aati, koi upay?</button>
+    <button>Liver detox aur fatty liver ke liye kya karein?</button>
+    <button>High aur Low Blood pressure ke ayurvedic nuskhe?</button>
+    <button>Smaran shakti (Memory) aur focus kaise badhayein?</button>
+    <button>Gathiya aur jodon ke dard ke liye kya upay hai?</button>
+    <button>Sharir ko detox aur shuddhi karne ke tarike batao?</button>
+    <button>Pachan aur acidity theek karne ke niyam?</button>
   </div>
 </div>
 
 <div class="composer">
   <div class="composer-inner">
-    <textarea id="input" rows="1" placeholder="Dadi se poochhiye (Hindi, Hinglish ya English)…"></textarea>
+    <textarea id="input" rows="1" placeholder="Punarvasu Vaidya se poochhiye (Hindi, Hinglish ya English)…"></textarea>
     <button class="send" id="sendBtn">Poochhein</button>
   </div>
-  <div class="disclaimer">Yeh dadi-nani ke paramparik nuskhe hain, medical advice nahi. Gambhir ya lagatar takleef mein doctor se zaroor milein.</div>
+  <div class="disclaimer">Yeh parampariq ayurvedic svasthya sujhav hain, pratyaksh chikitsakiya paramarsh (medical advice) nahi. Gambhir ya lagatar takleef mein doctor ya qualified vaidya se zaroor milein.</div>
 </div>
 
 <script>
@@ -122,11 +122,11 @@ async function send(){
   const text = inputEl.value.trim();
   if (!text || busy) return;
   busy = true; sendBtn.disabled = true;
-  startersEl.remove();
+  if (startersEl) startersEl.remove();
   inputEl.value = ''; inputEl.style.height = 'auto';
   addMsg(text, 'user');
   history.push({ role:'user', content:text });
-  const thinking = addMsg('Dadi soch rahi hai', 'thinking');
+  const thinking = addMsg('Vaidya ji soch rahe hain', 'thinking');
   try{
     const res = await fetch('/api/chat', {
       method:'POST',
@@ -142,7 +142,7 @@ async function send(){
     addSources(data.sources);
   } catch(err){
     thinking.remove();
-    addMsg('Arre beta, abhi jawab nahi mil paya. Dobara koshish karo. (' + err.message + ')', 'bot');
+    addMsg('Pranam beta, abhi jawab nahi mil paya. Dobara koshish karein. (' + err.message + ')', 'bot');
     history.pop();
   } finally {
     busy = false; sendBtn.disabled = false; inputEl.focus();

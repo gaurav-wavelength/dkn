@@ -1,7 +1,7 @@
-# Dadi Ke Nuskhe - Deploy Guide (Vercel + Gemini)
+# Punarvasu Vaidya - Deploy Guide (Vercel + Gemini)
 
 ## What's in this folder
-- `index.html` - the Dadi chat UI (static, no secrets inside)
+- `index.html` - the Punarvasu Vaidya chat UI (static, no secrets inside)
 - `api/chat.js` - serverless function that does the RAG retrieval server-side and calls the Gemini API. Your key lives only in Vercel's environment variables.
 
 ## Why this structure
@@ -16,10 +16,10 @@ Putting a Gemini key in front-end code means anyone can steal it from view-sourc
 3. In Vercel: Project > Settings > Environment Variables, add:
    - `GEMINI_API_KEY` = your new key
    - `GEMINI_MODEL` = gemini-2.5-flash (optional, this is the default; change anytime)
-4. Redeploy. Open the URL, ask Dadi something.
+4. Redeploy. Open the URL, ask Punarvasu Vaidya something.
 
 ## Custom domain
-Vercel > Project > Settings > Domains. e.g. dadi.rooai.care - add the CNAME it shows in your DNS.
+Vercel > Project > Settings > Domains. e.g. vaidya.rooai.care - add the CNAME it shows in your DNS.
 
 ## Recommended hardening (when it goes beyond family)
 - Vercel has basic DDoS protection, but add a rate limit if it's public: Vercel KV or Upstash, ~10 req/min per IP in chat.js.
@@ -30,5 +30,5 @@ Vercel > Project > Settings > Domains. e.g. dadi.rooai.care - add the CNAME it s
 - Netlify: same structure, function goes to `netlify/functions/chat.js` with a tiny signature change.
 - Cloudflare Pages + Workers: cheapest at scale, slightly more setup.
 
-## Updating the nuskhe
+## Updating the knowledge base
 All knowledge lives in the `CHUNKS` array at the top of `api/chat.js`. Add or edit chunks (id, title, tags, text) and redeploy. When you get video transcripts, they become new chunks here.
