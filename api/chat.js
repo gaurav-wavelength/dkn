@@ -232,7 +232,7 @@ export default async function handler(req, res){
   const system = BASE_RULES + '\n\n<nuskhe>\n' +
     retrieved.map(c=>'['+c.title+']\n'+c.text).join('\n\n') + '\n</nuskhe>';
 
-  const contents = messages.slice(-10).map(m=>({
+  const contents = messages.slice(-8).map(m=>({
     role: m.role === 'assistant' ? 'model' : 'user',
     parts: [{ text: String(m.content).slice(0, 4000) }]
   }));
@@ -250,7 +250,13 @@ export default async function handler(req, res){
         body: JSON.stringify({
           system_instruction: { parts: [{ text: system }] },
           contents,
-          generationConfig: { maxOutputTokens: 1000, temperature: 0.7 }
+          generationConfig: { maxOutputTokens: 1000, temperature: 0.7 },
+          safetySettings: [
+            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_ONLY_HIGH" },
+            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_ONLY_HIGH" },
+            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_ONLY_HIGH" },
+            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_ONLY_HIGH" }
+          ]
         })
       });
       
