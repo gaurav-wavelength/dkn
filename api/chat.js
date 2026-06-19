@@ -231,7 +231,7 @@ export default async function handler(req, res){
   const system = BASE_RULES + '\n\n<nuskhe>\n' +
     retrieved.map(c=>'['+c.title+']\n'+c.text).join('\n\n') + '\n</nuskhe>';
 
-  const contents = messages.slice(-20).map(m=>({
+  const contents = messages.slice(-10).map(m=>({
     role: m.role === 'assistant' ? 'model' : 'user',
     parts: [{ text: String(m.content).slice(0, 4000) }]
   }));
@@ -243,7 +243,7 @@ export default async function handler(req, res){
 
     for (let i = 0; i <= retries; i++) {
       const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' +
-        (process.env.GEMINI_MODEL || 'gemini-2.5-flash') + ':generateContent?key=' + apiKey, {
+        (process.env.GEMINI_MODEL || 'gemini-flash-latest') + ':generateContent?key=' + apiKey, {
         method:'POST',
         headers:{ 'Content-Type':'application/json' },
         body: JSON.stringify({
